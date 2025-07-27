@@ -6,7 +6,14 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
-    baseUrl: 'http://localhost:3000',
+    baseUrl: 'https://demowebshop.tricentis.com/',
+    excludeSpecPattern: ['**/1-getting-started', '**/2-advanced-examples'],
+    specPattern: 'cypress/e2e/**/*.{ts,js,tsx,jsx}',
+    defaultCommandTimeout: 10000,
+    viewportHeight: 1080,
+    viewportWidth: 1920,
+    video: false,
+    
   },
 
 })
