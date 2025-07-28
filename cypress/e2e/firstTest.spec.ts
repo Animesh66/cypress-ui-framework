@@ -12,5 +12,10 @@ describe('This is my first test', () => {
         cy.get('h1').should('have.text', 'Search');
         // Verify that the product is displayed
         cy.get('[class="price actual-price"]').should('have.text', '1590.00');
+        cy.get('[alt="Picture of 14.1-inch Laptop"]').click();
+        cy.get('[class="product-name"]').should('contains.text', '14.1-inch Laptop');
+        cy.get('[id="add-to-cart-button-31"]').click();
+        cy.get('[class="content"]').should('have.text', 'The product has been added to your shopping cart');
+        cy.get('[href="/cart"]').click();
     })
 })
