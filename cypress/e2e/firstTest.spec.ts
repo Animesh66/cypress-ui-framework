@@ -10,5 +10,7 @@ describe('This is my first test', () => {
         cy.get('[value="Search"]').click();
         // Verify that the search results page is displayed
         cy.get('h1').should('have.text', 'Search');
+        // Verify that the product is displayed
+        cy.get('[class="price actual-price"]').should('have.text', '1590.00');
     })
 })
