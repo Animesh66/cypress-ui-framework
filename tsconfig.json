@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": ["es5", "dom"],
+    "target": "es2015",
+    "lib": ["ES2015", "dom"],
     "types": ["cypress", "node"],
-    "module": "esnext",
+    "module": "es2015",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "strict": true,
