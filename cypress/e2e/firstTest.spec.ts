@@ -1,6 +1,9 @@
 /// <reference types="cypress" />
 
+import NavigationMenu from "../support/pages/navigationMenu";
+
 describe('This is my first test', () => {
+    
     it('End to end flow', () => {
         // Navigate to base url
         cy.visit('/');
@@ -22,5 +25,10 @@ describe('This is my first test', () => {
         cy.get('[aria-describedby="terms-of-service-warning-box"]').find('button').click();
         cy.get('[name="termsofservice"]').check();
         cy.contains('Checkout').click();
+    })
+    it.only('Click on register link', () => {
+        const nav = new NavigationMenu();
+        nav.navigateToUrl();
+        nav.clickOnRegisterNavigation(); 
     })
 })
