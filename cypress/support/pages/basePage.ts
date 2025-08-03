@@ -1,10 +1,16 @@
 export default class BasePage {
+    url: string;
 
-    navigateToUrl(url?: string) {
-        if (url != null)
-            cy.visit(url);
-        else
-            cy.visit('/');
-        return this;
+    constructor(url: string) {
+        this.url = url;
     }
+
+    navigateToPage() {
+        cy.visit(this.url);
+    }
+
+    getElement(selector: string): Cypress.Chainable<JQuery<HTMLElement>> {
+        return cy.get(selector);
+    }
+
 }
