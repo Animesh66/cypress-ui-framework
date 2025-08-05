@@ -1,5 +1,6 @@
 import BasePage from "./basePage";
-
+import Data from "../../../testData/data";
+    
 export default class RegistrationPage extends BasePage {
     registerLink = '[class="ico-register"]';
     maleRadio = '[id="gender-male"]';
@@ -29,7 +30,7 @@ export default class RegistrationPage extends BasePage {
         else if(gender === 'female')
             this.getElement(this.femaleRadio).should('not.be.checked').and('not.be.disabled').check();
         else
-            throw new Error('Invalid gender. Gender should be either male or female');
+            throw new Error(`Invalid gender value ${gender}. Gender should be either male or female`);
         this.getElement(this.firstName).type(firstName);
         this.getElement(this.lastName).type(lastName);
         this.getElement(this.email).type(email);
