@@ -2,12 +2,13 @@
 
 import RegistrationPage from "../../support/pages/registrationPage";
 
-describe('This is my first test', () => {
+describe('Test conatining user registration flow', () => {
     const regPage = new RegistrationPage();
     beforeEach(() => {
         regPage.navigateToPage();
     })
-    it('Click on register link', () => {
+    it('User registration flow happy path scenario works as expected', () => {
         regPage.clickOnRegisterNavigation(); 
+        regPage.registerUser('male', 'Test', 'User', 'testuse56512@email.com', 'Test@123');
     })
 })
