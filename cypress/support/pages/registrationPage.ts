@@ -24,15 +24,12 @@ export default class RegistrationPage extends BasePage {
     }
 
     registerUser(gender: 'male' | 'female', firstName: string, lastName: string, email: string, password: string){
-        if(gender === 'male'){
+        if(gender === 'male')
             this.getElement(this.maleRadio).should('not.be.checked').and('not.be.disabled').check();
-        }
-        else if(gender === 'female'){
+        else if(gender === 'female')
             this.getElement(this.femaleRadio).should('not.be.checked').and('not.be.disabled').check();
-        }
-        else{
+        else
             throw new Error('Invalid gender. Gender should be either male or female');
-        }
         this.getElement(this.firstName).type(firstName);
         this.getElement(this.lastName).type(lastName);
         this.getElement(this.email).type(email);
