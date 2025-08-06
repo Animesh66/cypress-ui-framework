@@ -10,6 +10,8 @@ describe('Test conatining user registration flow', () => {
     })
     it('User registration flow happy path scenario works as expected', () => {
         regPage.clickOnRegisterNavigation(); 
-        regPage.registerUser(Data.Gender("female"), Data.FirstName, Data.LastName, Data.Email, Data.Password);
+        const email = Data.Email;
+        regPage.registerUser(Data.Gender("female"), Data.FirstName, Data.LastName, email, Data.Password);
+        regPage.verifyMyAccountPage(email);
     })
 })

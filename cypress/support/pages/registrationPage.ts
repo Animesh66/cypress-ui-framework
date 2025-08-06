@@ -13,6 +13,7 @@ export default class RegistrationPage extends BasePage {
     registerButton = '[id="register-button"]';
     successMessage = '[class="result"]';
     continueButton = '[class="button-1 register-continue-button"]';
+    myAccountLink = '[class="account"]';
     
     constructor() {
         super('/');
@@ -39,5 +40,9 @@ export default class RegistrationPage extends BasePage {
         this.getElement(this.registerButton).click();
         this.getElement(this.successMessage).should('contain', 'Your registration completed');
         this.getElement(this.continueButton).click();
+    }
+
+    verifyMyAccountPage(email: string){
+        this.getElement(this.myAccountLink).should('have.text', `${email}`);
     }
 }
