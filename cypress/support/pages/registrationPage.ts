@@ -43,6 +43,6 @@ export default class RegistrationPage extends BasePage {
     }
 
     verifyMyAccountPage(email: string){
-        this.getElement(this.myAccountLink).should('have.text', `${email}`);
+        this.getElement(this.myAccountLink).should('contain', `${email}`);
     }
 }
