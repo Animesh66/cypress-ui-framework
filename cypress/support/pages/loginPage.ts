@@ -1,5 +1,5 @@
 import BasePage from "./basePage";
 
-export class HomePage extends BasePage {
+export class LoginPage extends BasePage {
     
 }
