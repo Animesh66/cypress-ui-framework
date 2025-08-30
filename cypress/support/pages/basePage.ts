@@ -1,3 +1,6 @@
+/**
+ * BasePage class for common page actions
+ */
 export default class BasePage {
     url: string;
 
