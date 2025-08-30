@@ -4,7 +4,14 @@
   "description": "cypress automation test",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "run": "cypress run cypress/e2e/demo-webshop/",
+    "open": "cypress open",
+    "watch": "cypress watch cypress/e2e/demo-webshop/",
+    "report": "cypress run --reporter mochawesome --reporter-options reportDir=../cypress/reports/mocha,reportFilename=mochawesome-report",
+    "run:firefox": "cypress run --browser firefox",
+    "run:chrome": "cypress run --browser chrome",
+    "run:electron": "cypress run --browser electron",
+    "run:webkit": "cypress run --browser webkit"
   },
   "author": "",
   "license": "ISC",
@@ -12,6 +19,7 @@
     "@faker-js/faker": "^9.9.0",
     "@types/node": "^24.1.0",
     "cypress": "^14.5.3",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "mochawesome": "^10.2.0"
   }
 }
