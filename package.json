@@ -4,15 +4,14 @@
   "description": "cypress automation test",
   "main": "index.js",
   "scripts": {
-    "run": "cypress run cypress/e2e/demo-webshop/",
+    "run": "cypress run --spec=cypress/e2e/demo-webshop/",
     "open": "cypress open",
     "watch": "cypress watch cypress/e2e/demo-webshop/",
-    "report": "cypress run --reporter mochawesome --reporter-options reportDir=../cypress/reports/mocha,reportFilename=mochawesome-report",
-    "run:firefox": "cypress run --browser firefox",
-    "run:chrome": "cypress run --browser chrome",
-    "run:electron": "cypress run --browser electron",
-    "run:webkit": "cypress run --browser webkit",
-    "run:visual": "cypress run --browser chrome --env visual=true"
+    "run:firefox": "cypress run --browser firefox --spec=cypress/e2e/demo-webshop/",
+    "run:chrome": "cypress run --browser chrome --spec=cypress/e2e/demo-webshop/",
+    "run:electron": "cypress run --browser electron --spec=cypress/e2e/demo-webshop/",
+    "run:webkit": "cypress run --browser webkit --spec=cypress/e2e/demo-webshop/",
+    "run:visual": "cypress run --browser chrome --env visual=true --spec=cypress/visual-regression/"
   },
   "author": "",
   "license": "ISC",
