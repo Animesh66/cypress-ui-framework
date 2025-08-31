@@ -11,7 +11,8 @@
     "run:firefox": "cypress run --browser firefox",
     "run:chrome": "cypress run --browser chrome",
     "run:electron": "cypress run --browser electron",
-    "run:webkit": "cypress run --browser webkit"
+    "run:webkit": "cypress run --browser webkit",
+    "run:visual": "cypress run --browser chrome --env visual=true"
   },
   "author": "",
   "license": "ISC",
