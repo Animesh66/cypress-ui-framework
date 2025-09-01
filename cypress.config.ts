@@ -1,11 +1,16 @@
 import { defineConfig } from 'cypress'
+import { configureVisualRegression } from 'cypress-visual-regression'
 
 export default defineConfig({
   projectId: '4a4him',
   // Your Cypress configuration here
   e2e: {
+    env: {
+      visualRegressionType: 'regression'
+    },
+    screenshotsFolder: './cypress/snapshots/actual',
     setupNodeEvents(on, config) {
-      // implement node event listeners here
+      configureVisualRegression(on)
     },
     baseUrl: 'https://demowebshop.tricentis.com',
     excludeSpecPattern: ['**/1-getting-started', '**/2-advanced-examples'],
