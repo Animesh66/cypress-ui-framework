@@ -6,7 +6,11 @@ export default defineConfig({
   // Your Cypress configuration here
   e2e: {
     env: {
-      visualRegressionType: 'regression'
+      visualRegressionType: 'regression',
+      visualRegressionBaseDirectory: 'cypress/snapshot/base',
+      visualRegressionDiffDirectory: 'cypress/snapshot/diff',
+      visualRegressionGenerateDiff: 'always',
+      visualRegressionFailSilently: true
     },
     screenshotsFolder: './cypress/snapshots/actual',
     setupNodeEvents(on, config) {
