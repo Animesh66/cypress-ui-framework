@@ -2,16 +2,11 @@
  * BasePage class for common page actions
  */
 export default class BasePage {
-    url: string;
-
-    constructor(url: string) {
-        this.url = url;
-    }
     /**
      * Navigates to the page
      */
-    navigateToPage() {
-        cy.visit(this.url);
+    navigateToHomePage() {
+        cy.visit("/");
     }
     /**
      * Gets an element by selector

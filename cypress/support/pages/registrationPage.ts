@@ -11,10 +11,6 @@ export default class RegistrationPage extends BasePage {
     registerButton = '[id="register-button"]';
     successMessage = '[class="result"]';
     continueButton = '[class="button-1 register-continue-button"]';
-    
-    constructor() {
-        super('/');
-    }
 
     registerUser(gender: 'male' | 'female', firstName: string, lastName: string, email: string, password: string){
         if(gender === 'male')

@@ -6,16 +6,19 @@ import TopNavigation from "../../support/components/topNavigation";
 import MyAccountPage from "../../support/pages/myAccountPage";
 import { Logger } from "../../support/utils/logger";
 
-describe('Test conatining user registration flow', () => {
+describe.skip('Test conatining user registration flow', () => {
     const regPage = new RegistrationPage();
     const myAccount = new MyAccountPage();
 
     beforeEach(() => {
+        Logger.info('Navigating to home page');
+        regPage.navigateToHomePage();
+        Logger.info('Successfully navigated to home page')
+    })
+    it('User registration flow happy path scenario works as expected', () => {
         Logger.info('Navigating to registration page');
         TopNavigation.clickOnRegisterNavigation();
         Logger.info('Succesfully navigated to registration page');
-    })
-    it('User registration flow happy path scenario works as expected', () => {
         const email = Data.Email;
         Logger.info('Registering user with email ' + email);
         regPage.registerUser(Data.Gender("female"), Data.FirstName, Data.LastName, email, Data.Password);

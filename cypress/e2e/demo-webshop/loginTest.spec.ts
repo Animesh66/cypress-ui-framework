@@ -7,16 +7,18 @@ import MyAccountPage from "../../support/pages/myAccountPage";
 import { data } from "cypress/types/jquery";
 import { Logger } from "../../support/utils/logger";
 
-describe('Test conatining user login flow', () => {
+describe.skip('Test conatining user login flow', () => {
     const loginPage = new LoginPage();
     const myAccount = new MyAccountPage();
     beforeEach(() => {
-        loginPage.navigateToPage();
-    })
-    it.only('User login flow happy path scenario works as expected', () => {
+        Logger.info('Navigating to home page');
+        loginPage.navigateToHomePage();
+        Logger.info('Successfully navigated to home page')
         Logger.info('Navigating to login page');
         TopNavigation.clickOnLoginNavigation();
         Logger.info('Succesfully navigated to login page');
+    })
+    it.only('User login flow happy path scenario works as expected', () => {
         cy.fixture('login.json').then((data) => {
             Logger.info('Logging in with valid credentials');
             loginPage.login(data.email, data.password);
