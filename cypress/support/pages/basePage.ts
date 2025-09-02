@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 /**
  * BasePage class for common page actions
  */

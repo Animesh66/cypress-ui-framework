@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 /**
  * HeaderMenu class for header menu actions
  */
