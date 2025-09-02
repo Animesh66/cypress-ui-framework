@@ -7,8 +7,8 @@ export default class TopNavigation {
     private static readonly searchButton = '[class="button-1 search-box-button"]';
 
     static clickOnRegisterNavigation() {
-        cy.get(this.registerLink).should('be.visible').and('not.be.disabled');
-        cy.get(this.registerLink).click();
+        cy.get(TopNavigation.registerLink).should('be.visible').and('not.be.disabled');
+        cy.get(TopNavigation.registerLink).click();
         cy.url().should('include', 'register');
     }
 
