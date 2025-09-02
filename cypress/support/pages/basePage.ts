@@ -18,6 +18,7 @@ export default class BasePage {
      * @param selector - The selector to use to find the element
      */
     getElement(selector: string): Cypress.Chainable<JQuery<HTMLElement>> {
+        cy.isVisible(selector);
         return cy.get(selector);
     }
 
