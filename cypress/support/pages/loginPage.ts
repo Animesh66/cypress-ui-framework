@@ -6,7 +6,7 @@ import BasePage from "./basePage";
 export class LoginPage extends BasePage {
     email = '[id="Email"]';
     password = '[id="Password"]';
-    loginButton = '[id="login-button"]';
+    loginButton = '[class="button-1 login-button"]';
     
     constructor() {
         super('/login');
