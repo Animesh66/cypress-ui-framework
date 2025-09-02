@@ -9,7 +9,7 @@ describe('Test conatining user login flow', () => {
     beforeEach(() => {
         loginPage.navigateToPage();
     })
-    it('User login flow happy path scenario works as expected', () => {
+    it.only('User login flow happy path scenario works as expected', () => {
         TopNavigation.clickOnLoginNavigation();
         cy.fixture('login.json').then((data) => {
             loginPage.login(data.email, data.password);

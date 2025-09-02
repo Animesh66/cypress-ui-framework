@@ -18,7 +18,7 @@ export default defineConfig({
     },
     baseUrl: 'https://demowebshop.tricentis.com',
     excludeSpecPattern: ['**/1-getting-started', '**/2-advanced-examples'],
-    specPattern: 'cypress/e2e/**/*.{ts,js,tsx,jsx}',
+    specPattern: ['cypress/e2e/**/*.{ts,js,tsx,jsx}', 'cypress/visual-regression/**/*.{ts,js,tsx,jsx}'],
     defaultCommandTimeout: 10000,
     viewportHeight: 1080,
     viewportWidth: 1920,
