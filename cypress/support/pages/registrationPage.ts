@@ -11,7 +11,15 @@ export default class RegistrationPage extends BasePage {
     registerButton = '[id="register-button"]';
     successMessage = '[class="result"]';
     continueButton = '[class="button-1 register-continue-button"]';
-
+    
+    /**
+     * Register user with given gender, first name, last name, email and password
+     * @param gender - The gender to use for registration
+     * @param firstName - The first name to use for registration
+     * @param lastName - The last name to use for registration
+     * @param email - The email to use for registration
+     * @param password - The password to use for registration
+     */
     registerUser(gender: 'male' | 'female', firstName: string, lastName: string, email: string, password: string){
         if(gender === 'male')
             this.getElement(this.maleRadio).should('not.be.checked').and('not.be.disabled').check();
