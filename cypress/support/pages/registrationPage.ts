@@ -2,7 +2,6 @@ import BasePage from "./basePage";
 import Data from "../../../testData/data";
     
 export default class RegistrationPage extends BasePage {
-    registerLink = '[class="ico-register"]';
     maleRadio = '[id="gender-male"]';
     femaleRadio = '[id="gender-female"]';
     firstName = '[id="FirstName"]';
@@ -17,12 +16,6 @@ export default class RegistrationPage extends BasePage {
     
     constructor() {
         super('/');
-    }
-
-    clickOnRegisterNavigation(){
-        this.getElement(this.registerLink).should('be.visible').and('not.be.disabled');
-        this.getElement(this.registerLink).click();
-        cy.url().should('include', 'register');
     }
 
     registerUser(gender: 'male' | 'female', firstName: string, lastName: string, email: string, password: string){
