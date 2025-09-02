@@ -2,44 +2,30 @@
  * HeaderMenu class for header menu actions
  */
 export default class HeaderMenu {
-    private static readonly books = '[class="Books"]';
-    private static readonly computers = '[class="Computers"]';
-    private static readonly notebooks = '[class="Notebooks"]';
-    private static readonly desktops = '[class="Desktops"]';
-    private static readonly accessories = '[class="Accessories"]';
-    private static readonly cameraPhoto = '[class="Camera, photo"]';
-    private static readonly cellPhones = '[class="Cell phones"]';
-    private static readonly electronics = '[class="Electronics"]';
-    private static readonly apparel = '[class="Apparel & Shoes"]';
-    private static readonly digitalDownloads = '[class="Digital downloads"]';
-    private static readonly jewelry = '[class="Jewelry"]';
-    private static readonly giftCards = '[class="Gift Cards"]'; 
+
+    private static readonly headerMenu = '[class="top-menu"]';
     
     /**
      * Click on Books
      */
     static clickOnBooks() {
-        cy.isVisible(this.books);
-        cy.get(this.books).click();
+        cy.isVisible(HeaderMenu.headerMenu);
+        cy.get(HeaderMenu.headerMenu).contains("Books").click();
         cy.url().should('include', 'books');
     }
     /**
      * Hover on Computers
      */
     static hoverOnComputers() {
-        cy.isVisible(this.computers);
-        cy.get(this.computers).trigger('mouseover');
-        cy.isVisible(this.desktops);
-        cy.isVisible(this.accessories);
-        cy.isVisible(this.notebooks);
+        cy.isVisible(HeaderMenu.headerMenu);
+        cy.get(HeaderMenu.headerMenu).contains("Computers").trigger('mouseover');
     }
     /**
      * Click on Desktops
      */
     static clickOnDesktops() {
         HeaderMenu.hoverOnComputers();
-        cy.isVisible(this.desktops);
-        cy.get(this.desktops).click();
+        cy.get(HeaderMenu.headerMenu).contains("Desktops").click();
         cy.url().should('include', 'desktops');
     }      
     /**
@@ -47,8 +33,7 @@ export default class HeaderMenu {
      */
     static clickOnAccessories() {
         HeaderMenu.hoverOnComputers();
-        cy.isVisible(this.accessories);
-        cy.get(this.accessories).click();
+        cy.get(HeaderMenu.headerMenu).contains("Accessories").click();
         cy.url().should('include', 'accessories');
     }
     /**
@@ -56,58 +41,62 @@ export default class HeaderMenu {
      */
     static clickOnNotebooks() {
         HeaderMenu.hoverOnComputers();
-        cy.isVisible(this.notebooks);
-        cy.get(this.notebooks).click();
+        cy.get(HeaderMenu.headerMenu).contains("Notebooks").click();
         cy.url().should('include', 'notebooks');
     }
     /**
      * Hover on Electronics
      */
     static hoverOnElectronics() {
-        cy.isVisible(this.electronics);
-        cy.get(this.electronics).trigger('mouseover');
-        cy.isVisible(this.cameraPhoto);
-        cy.isVisible(this.cellPhones);
+        cy.isVisible(HeaderMenu.headerMenu);
+        cy.get(HeaderMenu.headerMenu).contains("Electronics").trigger('mouseover');
     }
     /**
-     * Click on Electronics
+     * Click on Camera & photo
      */
-    static clickOnElectronics() {
+    static clickOnCameraPhotos() {
         HeaderMenu.hoverOnElectronics();
-        cy.isVisible(this.electronics);
-        cy.get(this.electronics).click();
-        cy.url().should('include', 'electronics');
+        cy.get(HeaderMenu.headerMenu).contains("Camera & photo").click();
+        cy.url().should('include', 'camera-photos');
+    }
+    /**
+     * Click on Cell Phones
+     */
+    static clickOnCellPhones() {
+        HeaderMenu.hoverOnElectronics();
+        cy.get(HeaderMenu.headerMenu).contains("Cell Phones").click();
+        cy.url().should('include', 'cell-phones');
     }
     /**
      * Click on Apparel
      */
     static clickOnApparel() {
-        cy.isVisible(this.apparel);
-        cy.get(this.apparel).click();
-        cy.url().should('include', 'apparel');
+        cy.isVisible(HeaderMenu.headerMenu);
+        cy.get(HeaderMenu.headerMenu).contains("Apparel & Shoes").click();
+        cy.url().should('include', 'apparel-shoes');
     }
     /**
-     * Click on Digital Downloads
+     * Click on Digital downloads
      */
     static clickOnDigitalDownloads() {
-        cy.isVisible(this.digitalDownloads);
-        cy.get(this.digitalDownloads).click();
+        cy.isVisible(HeaderMenu.headerMenu);
+        cy.get(HeaderMenu.headerMenu).contains("Digital downloads").click();
         cy.url().should('include', 'digital-downloads');
     }
     /**
      * Click on Jewelry
      */
     static clickOnJewelry() {
-        cy.isVisible(this.jewelry);
-        cy.get(this.jewelry).click();
+        cy.isVisible(HeaderMenu.headerMenu);
+        cy.get(HeaderMenu.headerMenu).contains("Jewelry").click();
         cy.url().should('include', 'jewelry');
     }
     /**
      * Click on Gift Cards
      */
     static clickOnGiftCards() {
-        cy.isVisible(this.giftCards);
-        cy.get(this.giftCards).click();
+        cy.isVisible(HeaderMenu.headerMenu);
+        cy.get(HeaderMenu.headerMenu).contains("Gift Cards").click();
         cy.url().should('include', 'gift-cards');
     }
 }
