@@ -6,7 +6,7 @@ import TopNavigation from "../../support/components/topNavigation";
 import MyAccountPage from "../../support/pages/myAccountPage";
 import { Logger } from "../../support/utils/logger";
 
-describe.skip('Test conatining user registration flow', () => {
+describe('Test conatining user registration flow', () => {
     const regPage = new RegistrationPage();
     const myAccount = new MyAccountPage();
 
