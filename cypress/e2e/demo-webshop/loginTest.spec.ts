@@ -2,6 +2,7 @@
 
 import { LoginPage } from "../../support/pages/loginPage";
 import TopNavigation from "../../support/components/topNavigation";
+import HeaderMenu from "../../support/components/headerMenu";
 
 describe('Test conatining user login flow', () => {
     const loginPage = new LoginPage();
@@ -12,6 +13,7 @@ describe('Test conatining user login flow', () => {
         TopNavigation.clickOnLoginNavigation();
         cy.fixture('login.json').then((data) => {
             loginPage.login(data.email, data.password);
-        })
+        });
+        HeaderMenu.clickOnAccessories();
     })
 })

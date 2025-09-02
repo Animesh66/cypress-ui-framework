@@ -3,9 +3,12 @@
 import Data from "../../../testData/data";
 import RegistrationPage from "../../support/pages/registrationPage";
 import TopNavigation from "../../support/components/topNavigation";
+import MyAccountPage from "../../support/pages/myAccountPage";
 
 describe('Test conatining user registration flow', () => {
     const regPage = new RegistrationPage();
+    const myAccount = new MyAccountPage();
+
     beforeEach(() => {
         regPage.navigateToPage();
     })
@@ -13,6 +16,6 @@ describe('Test conatining user registration flow', () => {
         TopNavigation.clickOnRegisterNavigation();
         const email = Data.Email;
         regPage.registerUser(Data.Gender("female"), Data.FirstName, Data.LastName, email, Data.Password);
-        regPage.verifyMyAccountPage(email);
+        myAccount.verifyMyAccountPage(email);
     })
 })

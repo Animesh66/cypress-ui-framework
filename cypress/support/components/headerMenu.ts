@@ -19,7 +19,7 @@ export default class HeaderMenu {
      * Click on Books
      */
     static clickOnBooks() {
-        cy.get(this.books).should('be.visible').and('not.be.disabled');
+        cy.isVisible(this.books);
         cy.get(this.books).click();
         cy.url().should('include', 'books');
     }
@@ -27,18 +27,18 @@ export default class HeaderMenu {
      * Hover on Computers
      */
     static hoverOnComputers() {
-        cy.get(this.computers).should('be.visible').and('not.be.disabled');
+        cy.isVisible(this.computers);
         cy.get(this.computers).trigger('mouseover');
-        cy.get(this.desktops).should('be.visible').and('not.be.disabled');
-        cy.get(this.accessories).should('be.visible').and('not.be.disabled');
-        cy.get(this.notebooks).should('be.visible').and('not.be.disabled');
+        cy.isVisible(this.desktops);
+        cy.isVisible(this.accessories);
+        cy.isVisible(this.notebooks);
     }
     /**
      * Click on Desktops
      */
     static clickOnDesktops() {
         HeaderMenu.hoverOnComputers();
-        cy.get(this.desktops).should('be.visible').and('not.be.disabled');
+        cy.isVisible(this.desktops);
         cy.get(this.desktops).click();
         cy.url().should('include', 'desktops');
     }      
@@ -47,7 +47,7 @@ export default class HeaderMenu {
      */
     static clickOnAccessories() {
         HeaderMenu.hoverOnComputers();
-        cy.get(this.accessories).should('be.visible').and('not.be.disabled');
+        cy.isVisible(this.accessories);
         cy.get(this.accessories).click();
         cy.url().should('include', 'accessories');
     }
@@ -56,7 +56,7 @@ export default class HeaderMenu {
      */
     static clickOnNotebooks() {
         HeaderMenu.hoverOnComputers();
-        cy.get(this.notebooks).should('be.visible').and('not.be.disabled');
+        cy.isVisible(this.notebooks);
         cy.get(this.notebooks).click();
         cy.url().should('include', 'notebooks');
     }
@@ -64,17 +64,17 @@ export default class HeaderMenu {
      * Hover on Electronics
      */
     static hoverOnElectronics() {
-        cy.get(this.electronics).should('be.visible').and('not.be.disabled');
+        cy.isVisible(this.electronics);
         cy.get(this.electronics).trigger('mouseover');
-        cy.get(this.cameraPhoto).should('be.visible').and('not.be.disabled');
-        cy.get(this.cellPhones).should('be.visible').and('not.be.disabled');
+        cy.isVisible(this.cameraPhoto);
+        cy.isVisible(this.cellPhones);
     }
     /**
      * Click on Electronics
      */
     static clickOnElectronics() {
         HeaderMenu.hoverOnElectronics();
-        cy.get(this.electronics).should('be.visible').and('not.be.disabled');
+        cy.isVisible(this.electronics);
         cy.get(this.electronics).click();
         cy.url().should('include', 'electronics');
     }
@@ -82,7 +82,7 @@ export default class HeaderMenu {
      * Click on Apparel
      */
     static clickOnApparel() {
-        cy.get(this.apparel).should('be.visible').and('not.be.disabled');
+        cy.isVisible(this.apparel);
         cy.get(this.apparel).click();
         cy.url().should('include', 'apparel');
     }
@@ -90,7 +90,7 @@ export default class HeaderMenu {
      * Click on Digital Downloads
      */
     static clickOnDigitalDownloads() {
-        cy.get(this.digitalDownloads).should('be.visible').and('not.be.disabled');
+        cy.isVisible(this.digitalDownloads);
         cy.get(this.digitalDownloads).click();
         cy.url().should('include', 'digital-downloads');
     }
@@ -98,7 +98,7 @@ export default class HeaderMenu {
      * Click on Jewelry
      */
     static clickOnJewelry() {
-        cy.get(this.jewelry).should('be.visible').and('not.be.disabled');
+        cy.isVisible(this.jewelry);
         cy.get(this.jewelry).click();
         cy.url().should('include', 'jewelry');
     }
@@ -106,7 +106,7 @@ export default class HeaderMenu {
      * Click on Gift Cards
      */
     static clickOnGiftCards() {
-        cy.get(this.giftCards).should('be.visible').and('not.be.disabled');
+        cy.isVisible(this.giftCards);
         cy.get(this.giftCards).click();
         cy.url().should('include', 'gift-cards');
     }
