@@ -1,18 +1,16 @@
 /// <reference types="cypress" />
 
-import { LoginPage } from "../../support/pages/loginPage";
+import LoginPage from "../../support/pages/loginPage";
 import TopNavigation from "../../support/components/topNavigation";
 import HeaderMenu from "../../support/components/headerMenu";
 import MyAccountPage from "../../support/pages/myAccountPage";
-import { Logger } from "../../support/utils/logger";
+import Logger from "../../support/utils/logger";
 
 describe('Test conatining user login flow', () => {
-    const loginPage = new LoginPage();
-    const myAccount = new MyAccountPage();
 
     beforeEach(() => {
         Logger.info('Navigating to home page');
-        loginPage.navigateToHomePage();
+        LoginPage.navigateToHomePage();
         Logger.info('Successfully navigated to home page')
     })
 
@@ -22,9 +20,9 @@ describe('Test conatining user login flow', () => {
         Logger.info('Succesfully navigated to login page');
         cy.fixture('login.json').then((data) => {
             Logger.info('Logging in with valid credentials');
-            loginPage.login(data.email, data.password);
+            LoginPage.login(data.email, data.password);
             Logger.info('Succesfully logged in with valid credentials');
-            myAccount.verifyMyAccountPage(data.email);
+            MyAccountPage.verifyMyAccountPage(data.email);
         });
         Logger.info('Clicking on accessories');
         HeaderMenu.clickOnAccessories();

@@ -15,16 +15,16 @@ export default class TopNavigation {
      * Click on Webshop logo
      */
     static clickOnWebshopLogo() {
-        cy.isVisible(TopNavigation.webshopLogo);
-        cy.get(TopNavigation.webshopLogo)
-        cy.get(TopNavigation.webshopLogo).click();
+        cy.isVisible(this.webshopLogo);
+        cy.get(this.webshopLogo)
+        cy.get(this.webshopLogo).click();
     }
     /**
      * Click on Register navigation
      */
     static clickOnRegisterNavigation() {
-        cy.isVisible(TopNavigation.registerLink);
-        cy.get(TopNavigation.registerLink).click();
+        cy.isVisible(this.registerLink);
+        cy.get(this.registerLink).click();
         cy.url().should('include', 'register');
     }
 
@@ -32,8 +32,8 @@ export default class TopNavigation {
      * Click on Login navigation
      */
     static clickOnLoginNavigation() {
-        cy.isVisible(TopNavigation.loginLink);
-        cy.get(TopNavigation.loginLink).click();
+        cy.isVisible(this.loginLink);
+        cy.get(this.loginLink).click();
         cy.url().should('include', 'login');
     }
 
@@ -41,8 +41,8 @@ export default class TopNavigation {
      * Click on Cart
      */
     static clickOnCart() {
-        cy.isVisible(TopNavigation.cart);
-        cy.get(TopNavigation.cart).click();
+        cy.isVisible(this.cart);
+        cy.get(this.cart).click();
         cy.url().should('include', 'cart');
     }
 
@@ -50,8 +50,8 @@ export default class TopNavigation {
      * Click on Wish List
      */
     static clickOnWishList() {
-        cy.isVisible(TopNavigation.wishList);
-        cy.get(TopNavigation.wishList).click();
+        cy.isVisible(this.wishList);
+        cy.get(this.wishList).click();
         cy.url().should('include', 'wishlist');
     }
 
@@ -59,15 +59,15 @@ export default class TopNavigation {
      * Click on Search Box
      */
     static clickOnSearchBox() {
-        cy.isVisible(TopNavigation.searchBox);
-        cy.get(TopNavigation.searchBox).click();
+        cy.isVisible(this.searchBox);
+        cy.get(this.searchBox).click();
     }
 
     /**
      * Click on Search Button
      */
     static clickOnSearchButton() {
-        cy.isVisible(TopNavigation.searchButton);
-        cy.get(TopNavigation.searchButton).click();
+        cy.isVisible(this.searchButton);
+        cy.get(this.searchButton).click();
     }
 }

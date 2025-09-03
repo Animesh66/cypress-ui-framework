@@ -1,16 +1,16 @@
 import BasePage from "./basePage";
     
 export default class RegistrationPage extends BasePage {
-    maleRadio = '[id="gender-male"]';
-    femaleRadio = '[id="gender-female"]';
-    firstName = '[id="FirstName"]';
-    lastName = '[id="LastName"]';
-    email = '[id="Email"]';
-    password = '[id="Password"]';
-    confirmPassword = '[id="ConfirmPassword"]';
-    registerButton = '[id="register-button"]';
-    successMessage = '[class="result"]';
-    continueButton = '[class="button-1 register-continue-button"]';
+    private static readonly maleRadio = '[id="gender-male"]';
+    private static readonly femaleRadio = '[id="gender-female"]';
+    private static readonly firstName = '[id="FirstName"]';
+    private static readonly lastName = '[id="LastName"]';
+    private static readonly email = '[id="Email"]';
+    private static readonly password = '[id="Password"]';
+    private static readonly confirmPassword = '[id="ConfirmPassword"]';
+    private static readonly registerButton = '[id="register-button"]';
+    private static readonly successMessage = '[class="result"]';
+    private static readonly continueButton = '[class="button-1 register-continue-button"]';
     
     /**
      * Register user with given gender, first name, last name, email and password
@@ -20,7 +20,7 @@ export default class RegistrationPage extends BasePage {
      * @param email - The email to use for registration
      * @param password - The password to use for registration
      */
-    registerUser(gender: 'male' | 'female', firstName: string, lastName: string, email: string, password: string){
+    static registerUser(gender: 'male' | 'female', firstName: string, lastName: string, email: string, password: string){
         if(gender === 'male')
             this.getElement(this.maleRadio).should('not.be.checked').and('not.be.disabled').check();
         else if(gender === 'female')
