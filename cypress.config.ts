@@ -1,6 +1,6 @@
 import { defineConfig } from 'cypress'
 import { configureVisualRegression } from 'cypress-visual-regression'
-const allureWriter = require('@shelex/cypress-allure-plugin/writer');
+import { allureCypress } from "allure-cypress/reporter";
 
 export default defineConfig({
   projectId: '4a4him',
@@ -16,7 +16,9 @@ export default defineConfig({
     screenshotsFolder: './cypress/snapshots/actual',
     setupNodeEvents(on, config) {
       configureVisualRegression(on);
-      allureWriter(on, config, {resultsDir: 'allure-results'});
+      allureCypress(on, config, {
+        resultsDir: "allure-results",
+      });
       return config;
     },
     baseUrl: 'https://demowebshop.tricentis.com',
