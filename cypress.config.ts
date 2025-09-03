@@ -1,5 +1,6 @@
 import { defineConfig } from 'cypress'
 import { configureVisualRegression } from 'cypress-visual-regression'
+// @ts-ignore - Allure Cypress types are not properly exported
 import { allureCypress } from "allure-cypress/reporter";
 
 export default defineConfig({
