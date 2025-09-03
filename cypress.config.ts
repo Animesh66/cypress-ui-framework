@@ -1,7 +1,6 @@
 import { defineConfig } from 'cypress'
 import { configureVisualRegression } from 'cypress-visual-regression'
-// @ts-ignore - Allure Cypress types are not properly exported
-const allureCypress = require('allure-cypress/reporter').default;
+import { allureCypress } from "allure-cypress/reporter";
 
 export default defineConfig({
   projectId: '4a4him',
