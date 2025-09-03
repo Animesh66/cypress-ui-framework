@@ -16,4 +16,5 @@
 // Import commands.js using ES2015 syntax:
 import './commands'
 import { addCompareSnapshotCommand } from 'cypress-visual-regression/dist/command'
+import "allure-cypress";
 addCompareSnapshotCommand()

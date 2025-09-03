@@ -1,5 +1,6 @@
 import { defineConfig } from 'cypress'
 import { configureVisualRegression } from 'cypress-visual-regression'
+import { allureCypress } from "allure-cypress/reporter";
 
 export default defineConfig({
   projectId: '4a4him',
@@ -15,6 +16,10 @@ export default defineConfig({
     screenshotsFolder: './cypress/snapshots/actual',
     setupNodeEvents(on, config) {
       configureVisualRegression(on)
+      allureCypress(on, config, {
+        resultsDir: "allure-results",
+      });
+      return config;
     },
     baseUrl: 'https://demowebshop.tricentis.com',
     excludeSpecPattern: ['**/1-getting-started', '**/2-advanced-examples'],
