@@ -7,14 +7,14 @@ export default class BasePage {
     /**
      * Navigates to the page
      */
-    navigateToHomePage() {
+    static navigateToHomePage() {
         cy.visit("/");
     }
     /**
      * Gets an element by selector
      * @param selector - The selector to use to find the element
      */
-    getElement(selector: string): Cypress.Chainable<JQuery<HTMLElement>> {
+    static getElement(selector: string): Cypress.Chainable<JQuery<HTMLElement>> {
         cy.isVisible(selector);
         return cy.get(selector);
     }
