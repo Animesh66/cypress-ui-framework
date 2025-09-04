@@ -81,10 +81,21 @@ jobs:
       - name: Generate Allure Report
         run: npm run generate:report
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Upload Allure Report
+        uses: actions/upload-artifact@v4
         with:
+          name: allure-report
           path: ./allure-report
+
+  cleanup:
+    name: Cleanup Workflow Artifacts
+    needs: [report]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete node_modules artifact
+        uses: geekyeggo/delete-artifact@v5
+        with:
+          name: node_modules
 
   # deploy_to_dockerhub:
   #   name: Build and Push Docker Image
