@@ -13,7 +13,7 @@ permissions:
   id-token: write
 
 jobs:
-  test:
+  install:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -27,8 +27,53 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Upload node_modules
+        uses: actions/upload-artifact@v4
+        with:
+          name: node_modules
+          path: node_modules
+
+  test:
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download node_modules
+        uses: actions/download-artifact@v4
+        with:
+          name: node_modules
+          path: node_modules
+
       - name: Run Cypress tests
         run: npm run test || true
+
+      - name: Upload Allure results
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: allure-results
+          if-no-files-found: error
+
+  report:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download node_modules
+        uses: actions/download-artifact@v4
+        with:
+          name: node_modules
+          path: node_modules
+
+      - name: Download Allure results
+        uses: actions/download-artifact@v4
+        with:
+          name: allure-results
+          path: allure-results
 
       - name: Generate Allure Report
         run: npm run generate:report
@@ -39,7 +84,7 @@ jobs:
           path: ./allure-report
 
   deploy:
-    needs: test
+    needs: report
     runs-on: ubuntu-latest
     permissions:
       pages: write
