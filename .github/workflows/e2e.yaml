@@ -75,8 +75,8 @@ jobs:
           name: allure-results
           path: allure-results
 
-      - name: Add node_modules to PATH
-        run: echo "${{ github.workspace }}/node_modules/.bin" >> $GITHUB_PATH
+      - name: Link Allure executable
+        run: sudo ln -s "${{ github.workspace }}/node_modules/.bin/allure" /usr/local/bin/allure
 
       - name: Generate Allure Report
         run: npm run generate:report
@@ -85,20 +85,6 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./allure-report
-
-  deploy:
-    needs: report
-    runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
 
   build_and_push_docker:
     name: Build and Push Docker Image
