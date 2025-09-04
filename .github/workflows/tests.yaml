@@ -86,24 +86,24 @@ jobs:
         with:
           path: ./allure-report
 
-  build_and_push_docker:
-    name: Build and Push Docker Image
-    needs: report
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+  # deploy_to_dockerhub:
+  #   name: Build and Push Docker Image
+  #   needs: report
+  #   runs-on: ubuntu-latest
+  #   if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
 
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+  #     - name: Login to Docker Hub
+  #       uses: docker/login-action@v3
+  #       with:
+  #         username: ${{ secrets.DOCKERHUB_USERNAME }}
+  #         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: animeshmukherjee/cypress-ui-framework:latest
+  #     - name: Build and push
+  #       uses: docker/build-push-action@v5
+  #       with:
+  #         context: .
+  #         push: true
+  #         tags: animeshmukherjee/cypress-ui-framework:latest
