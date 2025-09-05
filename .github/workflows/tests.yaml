@@ -33,7 +33,7 @@ jobs:
           name: node_modules
           path: node_modules
 
-  test:
+  regression_test:
     needs: install
     runs-on: ubuntu-latest
     steps:
@@ -57,7 +57,7 @@ jobs:
           if-no-files-found: error
 
   report:
-    needs: test
+    needs: regression_test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
