@@ -29,6 +29,10 @@ export default defineConfig({
     viewportHeight: 1080,
     viewportWidth: 1920,
     video: false,
+    retries: {
+      runMode: 1,
+      openMode: 0
+    }
     
   },
 
