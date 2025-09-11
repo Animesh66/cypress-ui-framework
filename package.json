@@ -15,7 +15,7 @@
     "test:chrome:headed": "cypress run --browser chrome --spec=cypress/e2e/ --headed --parallel --workers=2",
     "test:electron:headed": "cypress run --browser electron --spec=cypress/e2e/ --headed --parallel --workers=2",
     "test:webkit:headed": "cypress run --browser webkit --spec=cypress/e2e/ --headed --parallel --workers=2",
-    "test:visual": "cypress run --browser chrome --env visual=true --spec=cypress/visual-regression/",
+    "test:visual": "cypress run --browser chrome --env visual=true --spec=cypress/visual_regression/",
     "posttest": "npm run generate:report",
     "generate:report": "npx allure generate allure-results --clean -o allure-report",
     "open:report": "npx allure open"
