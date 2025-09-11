@@ -56,8 +56,51 @@ jobs:
           path: allure-results
           if-no-files-found: error
 
-  report:
+  visual_regression:
+    name: Visual Regression Tests
     needs: regression_test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.17.1'
+
+      - name: Download node_modules
+        uses: actions/download-artifact@v4
+        with:
+          name: node_modules
+          path: node_modules
+
+      - name: Run visual regression suite
+        run: npm run test:visual || true
+
+      - name: Upload Visual Diff Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-diffs
+          path: cypress/snapshots/diff
+          if-no-files-found: warn
+
+      - name: Upload Visual Actual Snapshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-actual
+          path: cypress/snapshots/actual
+          if-no-files-found: warn
+
+      - name: Upload Allure results (visual)
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results-visual
+          path: allure-results
+          if-no-files-found: warn
+
+  report:
+    needs: [regression_test, visual_regression]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -69,17 +112,29 @@ jobs:
           name: node_modules
           path: node_modules
 
-      - name: Download Allure results
+      - name: Download Allure results (e2e)
         uses: actions/download-artifact@v4
         with:
           name: allure-results
           path: allure-results
 
+      - name: Download Allure results (visual)
+        uses: actions/download-artifact@v4
+        with:
+          name: allure-results-visual
+          path: allure-results-visual
+
       - name: Install Allure Commandline Globally
         run: npm install -g allure-commandline
 
+      - name: Merge Allure results
+        run: |
+          mkdir -p merged-allure-results
+          cp -R allure-results/* merged-allure-results/ || true
+          cp -R allure-results-visual/* merged-allure-results/ || true
+
       - name: Generate Allure Report
-        run: npm run generate:report
+        run: npx allure generate merged-allure-results --clean -o allure-report
 
       - name: Upload Allure Report
         uses: actions/upload-artifact@v4
