@@ -18,7 +18,7 @@ type ViewportSpec = {
   const viewports: ViewportSpec[] = [
     { name: 'desktop', width: 1920, height: 1080 },
     { name: 'tablet', preset: 'ipad-2' },
-    { name: 'mobile', preset: 'iphone-6' },
+    { name: 'mobile', preset: 'iphone-x' },
   ]
   
   const pages = {
