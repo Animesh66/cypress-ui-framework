@@ -67,7 +67,7 @@ type ViewportSpec = {
         it(`Login - full page and key elements (${vp.name})`, () => {
           cy.visit(pages.login)
           cy.get('.header').should('be.visible');
-          cy.get('h1').should('contain.text', 'Login');
+          cy.get('h1').should('contain.text', 'Sign In');
           cy.compareSnapshot(`login-full-${vp.name}`, 0.1);
           cy.get('.header').compareSnapshot(`home-header-${vp.name}`, 0.1);
         })
