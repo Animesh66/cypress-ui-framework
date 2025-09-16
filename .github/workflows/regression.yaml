@@ -54,6 +54,7 @@ jobs:
       - name: Run Cypress tests
         env:
           CYPRESS_ALLURE: '1'
+          ALLURE_RESULTS_DIR: 'allure-results'
         run: npm run test || true
 
       - name: Cypress version (e2e)
@@ -72,7 +73,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: allure-results
-          path: allure-results
+          path: |
+            allure-results
+            **/allure-results
           if-no-files-found: warn
 
   visual_regression:
@@ -97,6 +100,7 @@ jobs:
       - name: Run visual regression suite
         env:
           CYPRESS_ALLURE: '1'
+          ALLURE_RESULTS_DIR: 'allure-results'
         run: npm run test:visual || true
 
       - name: Cypress version (visual)
@@ -129,7 +133,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: allure-results-visual
-          path: allure-results
+          path: |
+            allure-results
+            **/allure-results
           if-no-files-found: warn
 
   generate_report:
