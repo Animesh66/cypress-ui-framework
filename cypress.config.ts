@@ -12,6 +12,7 @@ export default defineConfig({
   },
   e2e: {
     env: {
+      allure: true,
       visualRegressionType: 'regression',
       visualRegressionBaseDirectory: 'cypress/snapshots/base',
       visualRegressionDiffDirectory: 'cypress/snapshots/diff',

@@ -47,6 +47,8 @@ jobs:
           path: node_modules
 
       - name: Run Cypress tests
+        env:
+          CYPRESS_ALLURE: '1'
         run: npm run test || true
 
       - name: Show Allure results (e2e)
@@ -85,6 +87,8 @@ jobs:
           path: node_modules
 
       - name: Run visual regression suite
+        env:
+          CYPRESS_ALLURE: '1'
         run: npm run test:visual || true
 
       - name: Show Allure results (visual)
