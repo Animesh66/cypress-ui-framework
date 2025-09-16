@@ -8,10 +8,9 @@ export default defineConfig({
   // Your Cypress configuration here
   e2e: {
     env: {
-      allure: true,
       visualRegressionType: 'regression',
-      visualRegressionBaseDirectory: 'cypress/snapshots/base',
-      visualRegressionDiffDirectory: 'cypress/snapshots/diff',
+      visualRegressionBaseDirectory: 'cypress/snapshot/base',
+      visualRegressionDiffDirectory: 'cypress/snapshot/diff',
       visualRegressionGenerateDiff: 'always',
       visualRegressionFailSilently: true
     },

@@ -22,7 +22,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22.17.1'
 
       - name: Install dependencies
         run: npm ci
@@ -40,11 +40,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
       - name: Download node_modules
         uses: actions/download-artifact@v4
         with:
@@ -52,48 +47,14 @@ jobs:
           path: node_modules
 
       - name: Run Cypress tests
-        env:
-          CYPRESS_ALLURE: '1'
-          ALLURE_RESULTS_DIR: 'allure-results'
         run: npm run test || true
-
-      - name: Cypress version (e2e)
-        run: npx cypress --version || true
-
-      - name: Show Allure results (e2e)
-        run: |
-          echo "Listing allure-results after e2e run"
-          if [ -d "allure-results" ]; then
-            ls -la allure-results
-          else
-            echo "No allure-results directory found in workspace root"
-          fi
-
-      - name: Collect Allure results (fallback, e2e)
-        run: |
-          echo "Collecting all allure-results directories into tmp-allure (e2e)"
-          rm -rf tmp-allure && mkdir -p tmp-allure
-          # find up to 4 levels deep to keep it fast
-          FOUND=$(find . -maxdepth 4 -type d -name 'allure-results' || true)
-          echo "Found paths:"$'\n'"${FOUND}"
-          if [ -n "${FOUND}" ]; then
-            while IFS= read -r dir; do
-              echo "Copying from ${dir}"
-              cp -R "${dir}"/* tmp-allure/ 2>/dev/null || true
-            done <<< "${FOUND}"
-          else
-            echo "No allure-results directories found in workspace"
-          fi
-          echo "Listing tmp-allure contents:" && ls -la tmp-allure || true
 
       - name: Upload Allure results
         uses: actions/upload-artifact@v4
         with:
           name: allure-results
-          path: |
-            tmp-allure
-            allure-results
-          if-no-files-found: warn
+          path: allure-results
+          if-no-files-found: error
 
   visual_regression:
     name: Visual Regression Tests
@@ -106,7 +67,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22.17.1'
 
       - name: Download node_modules
         uses: actions/download-artifact@v4
@@ -115,60 +76,27 @@ jobs:
           path: node_modules
 
       - name: Run visual regression suite
-        env:
-          CYPRESS_ALLURE: '1'
-          ALLURE_RESULTS_DIR: 'allure-results'
         run: npm run test:visual || true
 
-      - name: Cypress version (visual)
-        run: npx cypress --version || true
-
-      - name: Show Allure results (visual)
-        run: |
-          echo "Listing allure-results after visual run"
-          if [ -d "allure-results" ]; then
-            ls -la allure-results
-          else
-            echo "No allure-results directory found in workspace root"
-          fi
-
-      - name: Collect Allure results (fallback, visual)
-        run: |
-          echo "Collecting all allure-results directories into tmp-allure (visual)"
-          rm -rf tmp-allure && mkdir -p tmp-allure
-          FOUND=$(find . -maxdepth 4 -type d -name 'allure-results' || true)
-          echo "Found paths:"$'\n'"${FOUND}"
-          if [ -n "${FOUND}" ]; then
-            while IFS= read -r dir; do
-              echo "Copying from ${dir}"
-              cp -R "${dir}"/* tmp-allure/ 2>/dev/null || true
-            done <<< "${FOUND}"
-          else
-            echo "No allure-results directories found in workspace"
-          fi
-          echo "Listing tmp-allure contents:" && ls -la tmp-allure || true
-
       - name: Upload Visual Diff Artifacts
-        if: ${{ hashFiles('cypress/snapshots/diff/**') != '' }}
         uses: actions/upload-artifact@v4
         with:
           name: visual-diffs
           path: cypress/snapshots/diff
+          if-no-files-found: warn
 
       - name: Upload Visual Actual Snapshots
-        if: ${{ hashFiles('cypress/snapshots/actual/**') != '' }}
         uses: actions/upload-artifact@v4
         with:
           name: visual-actual
           path: cypress/snapshots/actual
+          if-no-files-found: warn
 
       - name: Upload Allure results (visual)
         uses: actions/upload-artifact@v4
         with:
           name: allure-results-visual
-          path: |
-            tmp-allure
-            allure-results
+          path: allure-results
           if-no-files-found: warn
 
   generate_report:
@@ -183,13 +111,18 @@ jobs:
           persist-credentials: false
           fetch-depth: 0
 
-      - name: Download Allure results (both)
+      - name: Download Allure results (e2e)
         uses: actions/download-artifact@v4
-        continue-on-error: true
         with:
-          pattern: allure-results*
-          merge-multiple: true
+          name: allure-results
           path: all-results
+
+      - name: Download Allure results (visual)
+        uses: actions/download-artifact@v4
+        with:
+          name: allure-results-visual
+          path: all-results
+          continue-on-error: true
 
       - name: Install Allure Commandline
         run: |
