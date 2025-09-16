@@ -40,6 +40,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
       - name: Download node_modules
         uses: actions/download-artifact@v4
         with:
@@ -50,6 +55,9 @@ jobs:
         env:
           CYPRESS_ALLURE: '1'
         run: npm run test || true
+
+      - name: Cypress version (e2e)
+        run: npx cypress --version || true
 
       - name: Show Allure results (e2e)
         run: |
@@ -78,7 +86,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22.17.1'
+          node-version: '20'
 
       - name: Download node_modules
         uses: actions/download-artifact@v4
@@ -90,6 +98,9 @@ jobs:
         env:
           CYPRESS_ALLURE: '1'
         run: npm run test:visual || true
+
+      - name: Cypress version (visual)
+        run: npx cypress --version || true
 
       - name: Show Allure results (visual)
         run: |
@@ -133,17 +144,12 @@ jobs:
           persist-credentials: false
           fetch-depth: 0
 
-      - name: Download Allure results (e2e)
-        uses: actions/download-artifact@v4
-        with:
-          name: allure-results
-          path: all-results
-
-      - name: Download Allure results (visual)
+      - name: Download Allure results (both)
         uses: actions/download-artifact@v4
         continue-on-error: true
         with:
-          name: allure-results-visual
+          pattern: allure-results*
+          merge-multiple: true
           path: all-results
 
       - name: Install Allure Commandline
