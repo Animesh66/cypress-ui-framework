@@ -6,10 +6,6 @@ import { allureCypress } from "allure-cypress/reporter";
 export default defineConfig({
   projectId: '4a4him',
   // Your Cypress configuration here
-  reporter: 'allure-cypress',
-  reporterOptions: {
-    resultsDir: 'allure-results',
-  },
   e2e: {
     env: {
       allure: true,
