@@ -123,13 +123,11 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y default-jre
-          wget https://github.com/allure-framework/allure2/releases/download/2.27.0/allure-2.27.0.tgz
-          tar -xzf allure-2.27.0.tgz -C /usr/local/
-          echo "/usr/local/allure-2.27.0/bin" >> $GITHUB_PATH
+          npm install -g allure-commandline@2.29.0
       
       - name: Generate Allure Report
         run: |
-          allure generate all-results --clean -o allure-report
+          npx allure generate all-results --clean -o allure-report
           
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
