@@ -49,6 +49,11 @@ jobs:
       - name: Run Cypress tests
         run: npm run test || true
 
+      - name: Show Allure Results (E2E)
+        run: |
+          echo "Listing contents of allure-results directory..."
+          ls -la allure-results || echo "allure-results directory not found."
+
       - name: Upload Allure results
         uses: actions/upload-artifact@v4
         with:
@@ -77,6 +82,11 @@ jobs:
 
       - name: Run visual regression suite
         run: npm run test:visual || true
+
+      - name: Show Allure Results (Visual)
+        run: |
+          echo "Listing contents of allure-results directory..."
+          ls -la allure-results || echo "allure-results directory not found."
 
       - name: Upload Visual Diff Artifacts
         uses: actions/upload-artifact@v4
