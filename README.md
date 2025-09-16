@@ -1,23 +1,29 @@
-Cypress UI Framework
+# Cypress UI Framework
+
 End-to-end and visual regression test framework using Cypress 15, allure-cypress, and cypress-visual-regression.
 
-E2E tests: cypress/e2e/
-Visual regression tests: cypress/visual_regression/
-Allure results: allure-results/
-Combined Allure report: allure-report/
-Visual snapshots:
-Base: cypress/snapshots/base/
-Actual: cypress/snapshots/actual/
-Diff: cypress/snapshots/diff/
-Note: Ensure your config and CI paths match the actual folder names. If you switch between cypress/snapshot/ and cypress/snapshots/, update both config and workflow consistently.
+- E2E tests: `cypress/e2e/`
+- Visual regression tests: `cypress/visual_regression/`
+- Allure results: `allure-results/`
+- Combined Allure report: `allure-report/`
+- Visual snapshots:
+  - Base: `cypress/snapshots/base/`
+  - Actual: `cypress/snapshots/actual/`
+  - Diff: `cypress/snapshots/diff/`
 
-Tech Stack
-Cypress ^15
-allure-cypress ^3.3.3
-allure-commandline ^2.29.0 (for generating reports)
-cypress-visual-regression ^5.3.0
-TypeScript ^5
-Project Structure
+Note: Ensure your config and CI paths match the actual folder names. If you switch between `cypress/snapshot/` and `cypress/snapshots/`, update both config and workflow consistently.
+
+## Tech Stack
+
+- Cypress ^15
+- allure-cypress ^3.3.3
+- allure-commandline ^2.29.0 (for generating reports)
+- cypress-visual-regression ^5.3.0
+- TypeScript ^5
+
+## Project Structure
+
+```text
 cypress/
   e2e/
     demo-webshop/
@@ -38,25 +44,37 @@ testData/
     regression.yaml
 cypress.config.ts
 package.json
-Getting Started
-Prerequisites
+
+**Getting Started**
+
+**Prerequisites**
+
 Node.js 20+ (recommended) or the version configured in your CI
 Chrome/Chromium installed locally if you run tests outside containers
 Java (for local Allure report generation via CLI)
 Install dependencies
-Run: npm ci
+bash
+npm ci
 Open Cypress (interactive)
-Run: npm run open
+bash
+npm run open
 Running Tests
 E2E tests (current script)
+bash
 npm run test
-Underlying: cypress run --spec=cypress/e2e/ --parallel --workers=2
+# Underlying:
+# cypress run --spec=cypress/e2e/ --parallel --workers=2
 Tip: If not using Cypress Cloud, consider simplifying to:
+
+bash
 cypress run --spec 'cypress/e2e/**/*.{js,jsx,ts,tsx}'
 Visual regression tests
+bash
 npm run test:visual
-Underlying: cypress run --browser chrome --env visual=true --spec=cypress/visual_regression/
+# Underlying:
+# cypress run --browser chrome --env visual=true --spec=cypress/visual_regression/
 Baselines are stored in cypress/snapshots/base/. Actuals and diffs for each run go to cypress/snapshots/actual/ and cypress/snapshots/diff/.
+
 Visual Regression Notes
 Commands are registered in 
 cypress/support/e2e.ts
@@ -66,20 +84,28 @@ import "allure-cypress"; for Allure integration
 The helper stabilizeUI() in 
 cypress/visual_regression/visualRegression.spec.ts
  disables animations and waits briefly to reduce flakiness before snapshots.
-Allure Reporting
+
+**Allure Reporting**
+
 Results directory
-Allure test results are written to allure-results/
-Generate report locally
-npm run generate:report → outputs to allure-report/
-npm run open:report → opens Allure UI locally
-CLI (alternative)
+Allure test results are written to allure-results/.
+
+**Generate report locally**
+bash
+npm run generate:report   # outputs to allure-report/
+npm run open:report       # opens Allure UI locally
+
+**CLI (alternative)**
+bash
 npx allure generate allure-results --clean -o allure-report
 npx allure open
-CI: GitHub Actions
+
+**CI: GitHub Actions**
 Workflow file: 
 .github/workflows/regression.yaml
 
-Jobs
+**Jobs**
+
 install
 Checks out code, installs dependencies, uploads node_modules as an artifact for reuse
 regression_test
@@ -91,8 +117,8 @@ Optionally uploads visual artifacts:
 visual-diffs from cypress/snapshots/diff/ (if any diffs)
 visual-actual from cypress/snapshots/actual/ or cypress/snapshots/base/ (depending on configuration)
 Uploads allure-results-visual artifact
-generate_report
-Downloads both allure artifacts into all-results/
+report
+Downloads both allure artifacts into a merged folder
 Generates a combined Allure report into allure-report/
 Uploads the allure-report artifact so you can download it from the Actions run
 Common pitfalls
@@ -101,13 +127,13 @@ Ensure specs actually ran (check Cypress summary)
 Ensure Allure reporter is engaged (via CLI or config)
 Ensure artifact upload path matches where results are generated
 Visual diffs only appear when mismatches occur; conditional uploads avoid “no files found” noise
-Docker (Optional)
-Multi-stage Docker build to run tests and serve Allure report via Nginx:
+
+**Docker (Optional)**
+Multi-stage Docker build to run tests and serve Allure report via Nginx.
 
 Stage 1 (builder): Use cypress/included:15.0.0, install Java, install deps, run tests, generate Allure report
 Stage 2 (runtime): Use nginx:alpine, copy allure-report/ to /usr/share/nginx/html, expose on port 80
-Example outline:
-
+dockerfile
 FROM cypress/included:15.0.0 as builder
 WORKDIR /e2e
 RUN apt-get update && apt-get install -y default-jre
@@ -123,12 +149,14 @@ EXPOSE 80
 CMD ["nginx","-g","daemon off;"]
 Build:
 
+bash
 docker build -t yourorg/cypress-ui-framework:latest .
 Run:
 
+bash
 docker run -p 8080:80 yourorg/cypress-ui-framework:latest
-Open http://localhost:8080
-Troubleshooting
+# Open http://localhost:8080
+**Troubleshooting**
 No allure-results produced
 Ensure tests actually ran and reporter is active
 Confirm the folder path (root vs nested) and match the artifact upload path
