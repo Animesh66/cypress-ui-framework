@@ -4,7 +4,7 @@
   "description": "cypress automation test",
   "main": "index.js",
   "scripts": {
-    "test": "cypress run --spec=cypress/e2e/ --parallel --workers=2",
+    "test": "cypress run --spec 'cypress/e2e/**/*.{js,jsx,ts,tsx}' --parallel --workers=2",
     "open": "cypress open",
     "watch": "cypress watch cypress/e2e/",
     "test:firefox": "cypress run --browser firefox --spec=cypress/e2e/",

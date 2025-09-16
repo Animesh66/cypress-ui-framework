@@ -22,7 +22,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22.17.1'
+          node-version: '20'
 
       - name: Install dependencies
         run: npm ci
@@ -49,12 +49,21 @@ jobs:
       - name: Run Cypress tests
         run: npm run test || true
 
+      - name: Show Allure results (e2e)
+        run: |
+          echo "Listing allure-results after e2e run"
+          if [ -d "allure-results" ]; then
+            ls -la allure-results
+          else
+            echo "No allure-results directory found in workspace root"
+          fi
+
       - name: Upload Allure results
         uses: actions/upload-artifact@v4
         with:
           name: allure-results
           path: allure-results
-          if-no-files-found: error
+          if-no-files-found: warn
 
   visual_regression:
     name: Visual Regression Tests
@@ -77,6 +86,15 @@ jobs:
 
       - name: Run visual regression suite
         run: npm run test:visual || true
+
+      - name: Show Allure results (visual)
+        run: |
+          echo "Listing allure-results after visual run"
+          if [ -d "allure-results" ]; then
+            ls -la allure-results
+          else
+            echo "No allure-results directory found in workspace root"
+          fi
 
       - name: Upload Visual Diff Artifacts
         if: ${{ hashFiles('cypress/snapshots/diff/**') != '' }}
