@@ -79,18 +79,18 @@ jobs:
         run: npm run test:visual || true
 
       - name: Upload Visual Diff Artifacts
+        if: ${{ hashFiles('cypress/snapshots/diff/**') != '' }}
         uses: actions/upload-artifact@v4
         with:
           name: visual-diffs
           path: cypress/snapshots/diff
-          if-no-files-found: warn
 
       - name: Upload Visual Actual Snapshots
+        if: ${{ hashFiles('cypress/snapshots/actual/**') != '' }}
         uses: actions/upload-artifact@v4
         with:
           name: visual-actual
           path: cypress/snapshots/actual
-          if-no-files-found: warn
 
       - name: Upload Allure results (visual)
         uses: actions/upload-artifact@v4
@@ -119,10 +119,10 @@ jobs:
 
       - name: Download Allure results (visual)
         uses: actions/download-artifact@v4
+        continue-on-error: true
         with:
           name: allure-results-visual
           path: all-results
-          continue-on-error: true
 
       - name: Install Allure Commandline
         run: |
