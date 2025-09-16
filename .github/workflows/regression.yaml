@@ -8,7 +8,7 @@ on:
     branches: [ 'master' ]
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -79,18 +79,18 @@ jobs:
         run: npm run test:visual || true
 
       - name: Upload Visual Diff Artifacts
-        if: ${{ hashFiles('cypress/snapshots/diff/**') != '' }}
         uses: actions/upload-artifact@v4
         with:
           name: visual-diffs
           path: cypress/snapshots/diff
+          if-no-files-found: warn
 
       - name: Upload Visual Actual Snapshots
-        if: ${{ hashFiles('cypress/snapshots/base/**') != '' }}
         uses: actions/upload-artifact@v4
         with:
           name: visual-actual
-          path: cypress/snapshots/base
+          path: cypress/snapshots/actual
+          if-no-files-found: warn
 
       - name: Upload Allure results (visual)
         uses: actions/upload-artifact@v4
@@ -99,51 +99,52 @@ jobs:
           path: allure-results
           if-no-files-found: warn
 
-  generate_report:
+  report:
     needs: [regression_test, visual_regression]
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Download node_modules
+        uses: actions/download-artifact@v4
         with:
-          persist-credentials: false
-          fetch-depth: 0
+          name: node_modules
+          path: node_modules
 
       - name: Download Allure results (e2e)
         uses: actions/download-artifact@v4
         with:
           name: allure-results
-          path: all-results
+          path: allure-results
 
       - name: Download Allure results (visual)
         uses: actions/download-artifact@v4
-        continue-on-error: true
         with:
           name: allure-results-visual
-          path: all-results
+          path: allure-results-visual
 
-      - name: Install Allure Commandline
+      - name: Install Allure Commandline Globally
+        run: npm install -g allure-commandline
+
+      - name: Merge Allure results
         run: |
-          sudo apt-get update
-          sudo apt-get install -y default-jre
-          npm install -g allure-commandline@2.29.0
-      
+          mkdir -p merged-allure-results
+          cp -R allure-results/* merged-allure-results/ || true
+          cp -R allure-results-visual/* merged-allure-results/ || true
+
       - name: Generate Allure Report
-        run: |
-          npx allure generate all-results --clean -o allure-report
+        run: npx allure generate merged-allure-results --clean -o allure-report
 
-      - name: Upload Combined Allure Report
+      - name: Upload Allure Report
         uses: actions/upload-artifact@v4
         with:
           name: allure-report
-          path: allure-report
-          if-no-files-found: error
+          path: ./allure-report
 
   cleanup:
     name: Cleanup Workflow Artifacts
-    needs: [generate_report]
+    needs: [report]
     runs-on: ubuntu-latest
     steps:
       - name: Delete node_modules artifact
