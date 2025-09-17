@@ -40,11 +40,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.17.1'
+
       - name: Download node_modules
         uses: actions/download-artifact@v4
         with:
           name: node_modules
           path: node_modules
+
+      - name: Install Cypress binary
+        run: npx cypress install
 
       - name: Run Cypress tests
         run: npm run test || true
@@ -82,6 +90,9 @@ jobs:
 
       - name: Run visual regression suite
         run: npm run test:visual || true
+
+      - name: Install Cypress binary
+        run: npx cypress install
 
       - name: Show Allure Results (Visual)
         run: |
